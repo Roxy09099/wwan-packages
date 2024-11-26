@@ -32,6 +32,20 @@
 #include <linux/usb/cdc.h>
 #include <linux/usb/usbnet.h>
 #include <linux/usb/cdc-wdm.h>
+#include <linux/string.h>
+
+static size_t strlcpy(char *dest, const char *src, size_t size)
+{
+    size_t len = strlen(src);
+
+    if (size > 0) {
+        size_t copy_len = (len >= size) ? size - 1 : len;
+        memcpy(dest, src, copy_len);
+        dest[copy_len] = '\0';
+    }
+
+    return len;
+}
 
 #ifndef ETH_P_MAP
 #define ETH_P_MAP 0xDA1A
